@@ -8,14 +8,16 @@
     </head>
     <body>
         <div class="row header-pane">
-            <div class="col-2 logo"></div>
-            <div class="col-10 app-title">Smart School Manager</div>
+            <div class="auth-page-headers">
+                <div class="col-2 logo"></div>
+                <div class="col-10 app-title">Smart School Manager</div>
+            </div>
         </div>
         <div class="col-12">
             <div class="col-12">
                 <div class="col-3"></div>
                 <div class="col-6 form-pane">
-                    <form class="auth-form">
+                    <form name="login-form" method="post" action="../backend/authentication/login.php" class="auth-form">
                         <h4>LOGIN</h4>
                         <input type="text" name="username" placeholder="Enter Username or Email" class="form-input form-element">
                         <input type="text" name="user-password" placeholder="Enter Password" class="form-input form-element">
