@@ -39,7 +39,7 @@ body{
     display: flex;
     justify-content: center;
     align-content: baseline;
-    padding-bottom: 5%;
+    padding-bottom: 2%;
     font-size: xxx-large;
     color: ghostwhite;
 }
@@ -47,14 +47,17 @@ body{
 .logo{
     margin: 10px;
     background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");
+    border-radius: 35px;
     height: 70px;
     width: 70px;
-    border-radius: 35px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
+.navbar-top{
+    color: ghostwhite;
+}
 
 /****************** Authentication ****************/
 .auth-form{
@@ -100,7 +103,27 @@ body{
     }
 
     .app-title{
+
+    }
+
+    .auth-page-headers .app-title{
+        display: flex;
+        justify-content: center;
+        align-content: baseline;
+        padding-bottom: 2%;
         font-size: 32px;
+        color: ghostwhite;
+    }
+
+    .logged-in-header .app-title{
+        display: flex;
+        justify-content: center;
+        align-content: baseline;
+        padding-bottom: 1%;
+        width: 80%;
+        height: 15%;
+        font-size: 28px;
+        color: ghostwhite;
     }
 
     .logo{
@@ -113,6 +136,50 @@ body{
         background-position: center;
         background-repeat: no-repeat;
     }
+
+    .auth-page-headers .logo{
+        height: 70px;
+        width: 70px;
+    }
+
+    .logged-in-header .logo{
+        width: 15%;
+    }
+
+    .navbar-top{
+        padding-bottom: 3px;
+        padding-top: 3px;
+    }
+
+    .navbar-top #menu-icon{
+        width: 10%;
+        height: 10%;
+    }
+
+    #user-icon{
+        display: inline-block;
+        width: 130px;
+        font-size: 12px;
+        font-weight: bold;
+        color: inherit;
+    }
+
+    /*#logout-btn{*/
+    /*    position: relative;*/
+    /*    left: 31%;*/
+    /*}*/
+
+    #find-pane{
+        display: inline-block;
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 3px;
+        border: solid 1px;
+    }
+
+    /*#find-pane{*/
+    /*    font-size: x-large;*/
+    /*}*/
 
     /*********** Side Bar *************/
     .side-bar{
@@ -127,6 +194,7 @@ body{
     /****************** Authentication ****************/
     .auth-form{
         border: solid 1px;
+        width: 98%;
     }
     .auth-form h4{
         border-bottom: solid 1px;
@@ -160,7 +228,11 @@ body{
         margin-right: 2%;
     }
 
-/*******************Footer***************/
+    #user-icon{
+
+    }
+
+    /*******************Footer***************/
     .footer{
         border-top: solid 1px;
         position: relative;
@@ -170,7 +242,7 @@ body{
 
 
 
-    /*.top-banner{*/
+/*.top-banner{*/
 /*    width: 100%;*/
 /*}*/
 
