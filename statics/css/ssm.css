@@ -35,6 +35,10 @@ body{
     background-color: darkslateblue;
 }
 
+#mobile-header{
+    display: none;
+}
+
 .app-title{
     display: flex;
     justify-content: center;
@@ -57,6 +61,47 @@ body{
 
 .navbar-top{
     color: ghostwhite;
+    padding-bottom: 2px;
+    padding-top: 3px;
+    background-color: black;
+}
+
+.navbar-top div{
+    display: inline-block;
+}
+
+#search-pane{
+    display: inline-block;
+    width: 300px;
+    position: absolute;
+    right: 16%;
+    top: 22%;
+}
+#find-pane{
+    display: flex;
+    border: solid 1px;
+    width: 100%;
+}
+
+#search-field{
+    width: 90%;
+    margin-left: 2%;
+}
+
+#find-pane img{
+    width: 8%;
+}
+
+#desktop-logout-btn{
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 3%;
+    top: 23%;
+}
+
+#desktop-user-icon{
+    padding-bottom: -5px;
 }
 
 /****************** Authentication ****************/
@@ -102,80 +147,75 @@ body{
         width: 100%;
     }
 
-    .app-title{
-
+    #desktop-header{
+        display: none;
     }
 
-    .auth-page-headers .app-title{
-        display: flex;
-        justify-content: center;
-        align-content: baseline;
-        padding-bottom: 2%;
-        font-size: 32px;
-        color: ghostwhite;
+    #mobile-header{
+        display: block;
     }
-
-    .logged-in-header .app-title{
-        display: flex;
-        justify-content: center;
-        align-content: baseline;
-        padding-bottom: 1%;
-        width: 80%;
-        height: 15%;
-        font-size: 28px;
-        color: ghostwhite;
-    }
-
-    .logo{
-        /*margin: 10px;*/
-        background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");
-        height: 60px;
-        width: 60px;
-        border-radius: 30px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .auth-page-headers .logo{
-        height: 70px;
-        width: 70px;
-    }
-
-    .logged-in-header .logo{
+    #app-title-mobile{
         display: inline-block;
-        width: 15%;
+        padding-bottom: 1%;
+        width: 60%;
+        margin-left: 15px;
+        font-size: 21px;
+        color: ghostwhite;
+        position: relative;
+        top: -28px;
     }
 
-    .navbar-top{
-        padding-bottom: 3px;
-        padding-top: 3px;
+    /*.logo{*/
+    /*    !*margin: 10px;*!*/
+    /*    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");*/
+    /*    border-radius: 30px;*/
+    /*    background-size: cover;*/
+    /*    background-position: center;*/
+    /*    background-repeat: no-repeat;*/
+    /*}*/
+
+    #logo-mobile{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-left: 28px;
+    }
+    .navbar-top-mobile{
+        margin-top: 10px;
     }
 
-    .navbar-top #menu-icon{
-        width: 10%;
-        height: 10%;
+    #mobile-header #menu-icon{
+        width: 30px;
+        position: relative;
+        top: -25px;
     }
 
     #user-icon{
         display: inline-block;
-        width: 130px;
-        font-size: 12px;
+        width: 60%;
+        font-size: 15px;
         font-weight: bold;
         color: inherit;
     }
 
-    /*#logout-btn{*/
-    /*    position: relative;*/
-    /*    left: 31%;*/
-    /*}*/
+    #img-icon-cell{
+        max-width: 48px;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+    #logout-btn{
+        position: relative;
+        left: 20%;
+    }
 
-    #find-pane{
-        display: inline-block;
-        padding-left: 3px;
-        padding-right: 3px;
-        padding-top: 3px;
-        border: solid 1px;
+    #mobile-find-pane{
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        align-content: center;
+        margin-left: 5%;
+        margin-right: 5%;
+        border: solid 1px ghostwhite;
     }
 
     /*#find-pane{*/
@@ -233,7 +273,7 @@ body{
 
     }
 
-    /*******************Footer***************/
+/*******************Footer***************/
     .footer{
         border-top: solid 1px;
         position: relative;
@@ -243,7 +283,7 @@ body{
 
 
 
-/*.top-banner{*/
+    /*.top-banner{*/
 /*    width: 100%;*/
 /*}*/
 
