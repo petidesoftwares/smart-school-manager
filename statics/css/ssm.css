@@ -165,14 +165,14 @@ body{
         top: -28px;
     }
 
-    .logo{
-        /*margin: 10px;*/
-        background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");
-        border-radius: 30px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+    /*.logo{*/
+    /*    !*margin: 10px;*!*/
+    /*    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");*/
+    /*    border-radius: 30px;*/
+    /*    background-size: cover;*/
+    /*    background-position: center;*/
+    /*    background-repeat: no-repeat;*/
+    /*}*/
 
     #logo-mobile{
         display: inline-block;
@@ -224,11 +224,13 @@ body{
 
     /*********** Side Bar *************/
     .side-bar{
-        border: solid 1px;
+        border: solid 1px whitesmoke;
         width: 60%;
-        height: 480px;
-        /*background-color: ;*/
+        height: 500px;
+        background-color:whitesmoke  ;
         position: fixed;
+        left: 0px;
+        top: 0;
         z-index: 100;
     }
 
@@ -273,7 +275,7 @@ body{
 
     }
 
-/*******************Footer***************/
+    /*******************Footer***************/
     .footer{
         border-top: solid 1px;
         position: relative;
@@ -283,7 +285,7 @@ body{
 
 
 
-    /*.top-banner{*/
+/*.top-banner{*/
 /*    width: 100%;*/
 /*}*/
 

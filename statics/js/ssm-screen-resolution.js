@@ -1,5 +1,4 @@
 $(document).ready(function (){
-    alert(screen.width);
     // if(scr ===425 || screen.width <425){
     //     let mobile = document.getElementById('mobile-header');
     //     let desktop =document.getElementById('desktop-header');
