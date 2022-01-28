@@ -224,6 +224,7 @@ body{
 
     /*********** Side Bar *************/
     .side-bar{
+        display: none;
         border: solid 1px whitesmoke;
         width: 60%;
         height: 590px;
@@ -232,6 +233,12 @@ body{
         left: 0px;
         top: 0;
         z-index: 100;
+    }
+
+    #close-menu{
+        display: flex;
+        padding-bottom: 8px;
+        border-bottom: solid 1px darkslategray;
     }
 
     /****************** Authentication ****************/

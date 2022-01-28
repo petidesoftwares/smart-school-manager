@@ -7,3 +7,11 @@ $(document).ready(function (){
     //     alert();
     // }
 })
+
+function showSideBarMenu(){
+    document.getElementById('side-bar').style.display = "block";
+}
+
+function closeSideBarMenu(){
+    document.getElementById('side-bar').style.display = "none";
+}
