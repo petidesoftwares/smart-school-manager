@@ -4,5 +4,6 @@ $(document).ready(function (){
         let desktop =document.getElementById('desktop-header');
         mobile.style.display = "block";
         desktop.style.display = "none";
+        alert(screen.width);
     }
 })
