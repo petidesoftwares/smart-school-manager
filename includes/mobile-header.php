@@ -11,5 +11,7 @@
             </tr>
         </table>
     </div>
-    <span id="logout-btn">LogOut</span>
+    <form name="logout-form" method="post" action="../../backend/authentication/logout.php">
+        <span id="logout-btn"><input type="submit" name="logout" value="LogOut"></span>
+    </form>
 </div>

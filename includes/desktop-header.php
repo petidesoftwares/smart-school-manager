@@ -12,6 +12,7 @@
     <div id="search-pane">
         <div id="find-pane"><img src="../../statics/images/icons/search_white_24dp.svg"><input type="text" name="search" id="search-field"></div>
     </div>
-    <span id="desktop-logout-btn">Logout</span>
-
+    <form name="logout-form" method="post" action="../../backend/authentication/logout.php">
+        <span id="desktop-logout-btn"><input type="submit" name="logout" value="LogOut"></span>
+    </form>
 </div>
