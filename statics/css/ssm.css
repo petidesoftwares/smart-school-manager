@@ -104,6 +104,41 @@ body{
     padding-bottom: -5px;
 }
 
+/******************* side bar **********************/
+
+.side-bar{
+    width: 18%;
+    height: 393px;
+    padding-left: 0px;
+    padding-right: 0px;
+    color: whitesmoke;
+    background-color:black;
+    border: solid 1px black;
+    overflow-y: auto;
+    position: fixed;
+    left: 0px;
+    top: 27%;
+    z-index: 100;
+}
+
+#close-menu{
+    display: none;
+}
+
+#side-bar div{
+    padding: 14px;
+    cursor: pointer;
+}
+
+
+#side-bar div:not(#close-menu):hover{
+    background-color: #2c3034;
+}
+
+#side-bar .active{
+    background-color: #6c757d;
+}
+
 /****************** Authentication ****************/
 .auth-form{
     border: solid 1px;
@@ -140,6 +175,40 @@ body{
     margin-right: 2%;
 }
 
+/*******************Footer***************/
+.footer{
+    width: 100%;
+    border-top: solid 1px;
+    position: fixed;
+    bottom: 0px;
+}
+
+/***************** Tablet View *********************/
+
+@media screen and (min-device-width: 426px) and (max-device-width: 768px){
+    #search-pane{
+        position: absolute;
+        right: 16%;
+        top: 33%;
+    }
+
+    #desktop-logout-btn{
+        position: absolute;
+        right: 3%;
+        top: 33%;
+    }
+
+    .side-bar{
+        border: solid 1px black;
+        width: 30%;
+        height: 150px;
+        overflow-y: auto;
+        position: fixed;
+        left: 0px;
+        top: 44%;
+        z-index: 100;
+    }
+}
 
 /*****************Mobile view***********************/
 @media screen and (max-device-width: 425px) {
@@ -225,20 +294,34 @@ body{
     /*********** Side Bar *************/
     .side-bar{
         display: none;
-        border: solid 1px whitesmoke;
         width: 60%;
         height: 590px;
-        background-color:whitesmoke  ;
+        background-color:whitesmoke;
+        border: solid 1px whitesmoke;
+        font-size: large;
+        color: black;
         position: fixed;
         left: 0px;
         top: 0;
         z-index: 100;
     }
 
+    .side-bar div:hover{
+        color: whitesmoke;
+    }
+
+    .side-bar .active{
+        color: whitesmoke;
+    }
+
     #close-menu{
         display: flex;
         padding-bottom: 8px;
         border-bottom: solid 1px darkslategray;
+    }
+
+    #close-menu:hover{
+        background-color: whitesmoke;
     }
 
     /****************** Authentication ****************/
@@ -286,7 +369,7 @@ body{
     .footer{
         border-top: solid 1px;
         position: relative;
-        top: 380px;
+        top: 370px;
     }
 }
 

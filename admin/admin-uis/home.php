@@ -23,7 +23,13 @@
     <div class="col-3 side-bar" id="side-bar">
         <div id="close-menu">
             <img src="../../statics/images/icons/clear_black_24dp.svg" width="30px" onclick="closeSideBarMenu()">
-        </div></div>
+        </div>
+        <div class="active">Dashboard</div>
+        <div>Admit Pupil/Student</div>
+        <div>View Pupils/Students</div>
+        <div>View General Result</div>
+        <div>View Pupil/Student Result</div>
+    </div>
     <div class="col-9">
         <div class="main-content">Content</div>
         <div class="col-12 footer">footer</div>
