@@ -8,12 +8,9 @@
     </head>
     <body>
         <div class="row header-pane">
-            <div class="auth-page-headers">
-                <div class="col-2 logo"></div>
-                <div class="col-10 app-title">Smart School Manager</div>
-            </div>
+            <?php include_once ("../includes/pre-auth-header.php")?>
         </div>
-        <div class="col-12">
+        <div class="col-12 auth-main">
             <div class="col-12">
                 <div class="col-3"></div>
                 <div class="col-6 form-pane">
@@ -21,7 +18,7 @@
                         <h4>LOGIN</h4>
                         <input type="text" name="username" placeholder="Enter Username or Email" class="form-input form-element">
                         <input type="text" name="user-password" placeholder="Enter Password" class="form-input form-element">
-                        <input type="submit" name="submit" value="LOGIN" class="form-input auth-btn"><span id="forget-password-link"><a href="">Forget Password</a></span>
+                        <input type="submit" name="submit" value="LOGIN" class="form-input auth-btn"><span id="forget-password-link"><a href="password-change-request.php">Forget Password</a></span>
                     </form>
                 </div>
                 <div class="col-3"></div>

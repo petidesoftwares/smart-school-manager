@@ -32,7 +32,13 @@ body{
 
 
 .header-pane{
+    width: 100%;
     background-color: darkslateblue;
+    position: fixed;
+}
+
+.auth-main{
+    margin-top: 20%;
 }
 
 #mobile-header{
@@ -75,7 +81,7 @@ body{
     width: 300px;
     position: absolute;
     right: 16%;
-    top: 22%;
+    top: 81%;
 }
 #find-pane{
     display: flex;
@@ -96,7 +102,7 @@ body{
     cursor: pointer;
     position: absolute;
     right: 3%;
-    top: 23%;
+    top: 85%;
 }
 
 #desktop-logout-btn input{
@@ -112,11 +118,50 @@ body{
     padding-bottom: -5px;
 }
 
+/****************End of Header *********************/
+
+/******************Main Content****************/
+.main-content{
+    padding-right: 0px;
+}
+#main-content{
+    margin-top:10%;
+    margin-left: 20%;
+    padding-right: 8px;
+    width: 80%;
+    height: 450px;
+    overflow-y: auto;
+}
+
+#pupil-passport-file-pane{
+    display: none;
+    margin: 13px;
+}
+
+.pupil-data{
+    display: none;
+}
+
+#parent-data-header{
+    margin-top: 50px;
+    font-size: large;
+    border-bottom: solid 1px darkslategray;
+}
+
+#parent-data-header img{
+   float: right;
+    cursor: pointer;
+}
+
+#parent-data-pane{
+    display: none;
+}
+
 /******************* side bar **********************/
 
 .side-bar{
     width: 18%;
-    height: 393px;
+    height: 449px;
     padding-left: 0px;
     padding-right: 0px;
     color: whitesmoke;
@@ -125,7 +170,7 @@ body{
     overflow-y: auto;
     position: fixed;
     left: 0px;
-    top: 27%;
+    top: 25%;
     z-index: 100;
 }
 
@@ -183,10 +228,125 @@ body{
     margin-right: 2%;
 }
 
+/***************End Auth******************/
+.pane-title{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border-bottom: solid 1px darkslategray;
+
+}
+/************Admission page**************/
+
+.wrap-form-element{
+    display: inline-block;
+    width: 100%;
+}
+
+.wrap-form-element input{
+    width: 100%;
+}
+#student-gender-male, #student-gender-female, #parent-gender-male, #parent-gender-female{
+    width: 40px;
+    display: inline;
+}
+
+label[for="student-gender-male"], label[for="parent-gender-male"]{
+    margin-right: 20%;
+}
+
+/***********Image capture styling*********/
+
+.camera{
+    width: 240px;
+    height: 240px;
+    display: inline-block;
+}
+
+#video{
+    width: 240px;
+    height: 240px;
+    display: inline-block;
+    border: solid 1px darkslategray;
+}
+
+#run{
+    background-color: darkslateblue;
+}
+
+#capturebtn{
+    margin: 10px;
+    font-size: large;
+    outline: none;
+    border: solid 1px darkslateblue;
+    background-color: darkslateblue;
+    color: whitesmoke;
+}
+
+#canvas{
+    display: none;
+}
+
+.output{
+    width: 240px;
+    border: solid 1px darkslategray;
+}
+
+.passport-btn{
+    width: 20%;
+    margin: 2%;
+    font-size: large;
+    outline: none;
+    border: darkslategray;
+    background-color: darkslategray;
+    color: whitesmoke;
+}
+/*********** End of image capturing ******/
+
+/*#parent-data-header::after{*/
+/*    content: '\02795'; !* Unicode character for "plus" sign (+) *!*/
+/*    font-size: 13px;*/
+/*    color: #777;*/
+/*    float: right;*/
+/*    margin-left: 5px;*/
+/*}*/
+
+/********End of Admission Page **********/
+
+/**************View Page****************/
+.view-categories{
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: solid 1px darkslategray;
+}
+.category-pane{
+    padding: 5px;
+    margin: 10px;
+    font-size: large;
+}
+
+.category-pane select{
+    display: none;
+    outline: none;
+    border: solid 1px darkslategray;
+    font-size: large;
+}
+
+.view-record-pane th, tr, td{
+    border: solid 1px darkslategray;
+    border-collapse: collapse;
+}
+.view-record-pane table,th, tr, td{
+    border-collapse: collapse;
+}
+
+/************End of View Page***********/
+
 /*******************Footer***************/
 .footer{
     width: 100%;
     border-top: solid 1px;
+    background-color: whitesmoke;
     position: fixed;
     bottom: 0px;
 }
@@ -318,6 +478,70 @@ body{
     /*    font-size: x-large;*/
     /*}*/
 
+    /*****************Main content*******/
+    main-content{
+        margin-top: 5%;
+    }
+    #main-content{
+        margin-top:45%;
+        margin-left: 0%;
+        height: auto;
+        padding-right: 8px;
+        width: 100%;
+    }
+
+    #admission-form{
+        padding-top: 4px;
+    }
+
+    .wrap-form-element{
+        margin: 5px;
+        padding: 5px;
+    }
+    .form-spacer{
+        display: none;
+    }
+
+    .view-categories {
+        text-align: justify;
+    }
+
+    .category-pane{
+        display: block;
+        padding: 5px;
+        margin: 8px;
+        font-size: large;
+    }
+
+    .category-pane input{
+        width: 18px;
+        height: 18px;
+    }
+
+    .category-pane select{
+        outline: none;
+        border: solid 1px darkslategray;
+        font-size: large;
+    }
+
+    .view-record-pane{
+        width: auto;
+        overflow-x: auto;
+    }
+
+    .view-record-pane table{
+        width: 450px;
+        border: solid 1px darkslategray;
+    }
+    th, tr, td{
+        border: solid 1px darkslategray;
+        border-collapse: collapse;
+    }
+    table,th, tr, td{
+        border-collapse: collapse;
+    }
+
+    /*********End main section *********/
     /*********** Side Bar *************/
     .side-bar{
         display: none;
@@ -392,7 +616,13 @@ body{
 
     }
 
-    /*******************Footer***************/
+    /******************Passport styling *************/
+
+    .passport-btn{
+        width: 40%;
+    }
+
+/*******************Footer***************/
     .footer{
         border-top: solid 1px;
         position: relative;
@@ -402,7 +632,7 @@ body{
 
 
 
-/*.top-banner{*/
+    /*.top-banner{*/
 /*    width: 100%;*/
 /*}*/
 

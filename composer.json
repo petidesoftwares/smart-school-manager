@@ -1,6 +1,6 @@
 {
-    "name": "dell/smart-school-manager",
-    "description": "Smart School Manager for secondary schools and lower",
+    "name": "dell/ssm",
+    "description": "smart school manager development",
     "license": "MIT",
     "authors": [
         {
@@ -8,5 +8,16 @@
             "email": "petideenterprise@gmail.com"
         }
     ],
-    "require": {}
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Backend\\": "backend/",
+            "Backend\\Connection\\": "backend/connection/",
+            "Backend\\Authentication\\": "backend/authentication/",
+            "Backend\\Models\\": "backend/models",
+            "Backend\\Database\\" : "backend/database",
+            "Backend\\Conttrollers\\": "backend/controllers"
+        }
+    }
 }

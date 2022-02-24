@@ -9,33 +9,35 @@
     <script type="text/javascript" src="../../statics/js/ssmjs.js"></script>
 </head>
 <body>
-<div class="row header-pane">
-    <div class="logged-in-header">
-        <div id="mobile-header">
-            <?php include_once ("../../includes/mobile-header.php")?>
-        </div>
-        <div id="desktop-header">
-            <?php include_once ("../../includes/desktop-header.php")?>
+<div class="row">
+    <div class="header-pane">
+        <div class="logged-in-header">
+            <div id="mobile-header">
+                <?php include_once ("../../includes/mobile-header.php")?>
+            </div>
+            <div id="desktop-header">
+                <?php include_once ("../../includes/desktop-header.php")?>
+            </div>
         </div>
     </div>
 </div>
 <div class="col-12">
-    <div class="col-3 side-bar" id="side-bar">
+    <div class="col-2 side-bar" id="side-bar">
         <div id="close-menu">
             <img src="../../statics/images/icons/clear_black_24dp.svg" width="30px" onclick="closeSideBarMenu()">
         </div>
         <div class="active">Dashboard</div>
-        <div>Admit Pupil/Student</div>
-        <div>View Pupils/Students</div>
+        <div onclick="showAdmissionForm()">Admit Pupil/Student</div>
+        <div onclick="showViewStudentPane()">View Pupils/Students</div>
         <div>View General Result</div>
         <div>View Pupil/Student Result</div>
     </div>
-    <div class="col-9">
-        <div class="main-content">Content</div>
-        <div class="col-12 footer">footer</div>
+    <div class="col-12 main-content">
+        <div id="main-content">
+        </div>
     </div>
-
 </div>
+<div class="col-12 footer">footer</div>
 
 </body>
 </html>

@@ -2,10 +2,10 @@
 <div class="col-10 app-title" id="app-title">Smart School Manager</div>
 <div class="col-12 navbar-top">
     <div id="desktop-user-icon">
-        <table>
-            <tr>
-                <td><img src="../../statics/images/icons/avater.png" width="50px"></td>
-                <td>Mr. P. O.<br> Ide</td>
+        <table style="border: none">
+            <tr style="border: none">
+                <td style="border: none"><img src="../../statics/images/icons/avater.png" width="50px"></td>
+                <td style="border: none">Mr. P. O.<br> Ide</td>
             </tr>
         </table>
     </div>
@@ -15,4 +15,5 @@
     <form name="logout-form" method="post" action="../../backend/authentication/logout.php">
         <span id="desktop-logout-btn"><input type="submit" name="logout" value="LogOut"></span>
     </form>
+
 </div>
