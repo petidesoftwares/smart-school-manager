@@ -661,8 +661,8 @@ label[for="student-gender-male"], label[for="parent-gender-male"]{
         margin-right: 2%;
     }
 
-    #user-icon{
-
+    #user-icon td{
+        border: none;
     }
 
     /******************Passport styling *************/
