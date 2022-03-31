@@ -26,11 +26,14 @@
         <div id="close-menu">
             <img src="../../statics/images/icons/clear_black_24dp.svg" width="30px" onclick="closeSideBarMenu()">
         </div>
-        <div class="active">Dashboard</div>
-        <div onclick="showAdmissionForm()">Admit Pupil/Student</div>
-        <div onclick="showViewStudentPane()">View Pupils/Students</div>
-        <div>View General Result</div>
-        <div>View Pupil/Student Result</div>
+        <div class="menu-item">Dashboard</div>
+        <div class="menu-item" onclick="showAdmissionForm()">Admit Pupil/Student</div>
+        <div class="menu-item" onclick="showViewStudentPane()">View Pupils/Students</div>
+        <div class="menu-item" onclick="showSubjectUploadPane()">Upload Subject(s)</div>
+        <div class="menu-item" onclick="createTeacherView()">Add Teacher</div>
+        <div class="menu-item" onclick = "showAssignSubjectView()">Assign Subject</div>
+        <div class="menu-item">View General Result</div>
+        <div class="menu-item">View Pupil/Student Result</div>
     </div>
     <div class="col-12 main-content">
         <div id="main-content">

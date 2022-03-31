@@ -7,14 +7,17 @@ let video = null;
 let canvas = null;
 let photo = null;
 let startbutton = null;
-$(document).ready(function (){
-    // if(screen.width ===425 || screen.width <425){
-    //     let mobile = document.getElementById('mobile-header');
-    //     let desktop =document.getElementById('desktop-header');
-    //     mobile.style.display = "block";
-    //     desktop.style.display = "none";
-    // }
 
+let subjectCount = 1;
+$(document).ready(function (){
+    const menuItems = document.getElementsByClassName('"menu-item"');
+    for(let i=0; i< menuItems.length; i++){
+        menuItems[i].addEventListener('click', function (){
+            alert(this.innerHTML);
+            this.classList.toggle('active');
+        })
+    }
+    hideSideBarMenu();
 })
 
 function showSideBarMenu(){
@@ -46,7 +49,6 @@ function showAdmissionForm(){
             alert(error);
         }
     })
-
     hideSideBarMenu();
 }
 
@@ -62,8 +64,64 @@ function showViewStudentPane(){
             alert(error);
         }
     })
-
     hideSideBarMenu();
+}
+
+function showSubjectUploadPane(){
+    $.ajax({
+        type:"post",
+        url: "../admin-uis/upload-subjects.php",
+        success: function (response){
+            document.getElementById('main-content').innerHTML = "";
+            document.getElementById("main-content").innerHTML = response;
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+    hideSideBarMenu();
+}
+
+function createTeacherView(){
+    $.ajax({
+        type: "post",
+        url:"../admin-uis/create-teacher.php",
+        success: function (response){
+            document.getElementById('main-content').innerHTML = "";
+            document.getElementById("main-content").innerHTML = response;
+
+            getTitle('teacher-title');
+            document.getElementById('teaching-type-pane').style.display = 'none';
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+    hideSideBarMenu();
+}
+
+function showAssignSubjectView(){
+    $.ajax({
+        type: "post",
+        url:"../admin-uis/assign-subject.php",
+        success: function (response){
+            document.getElementById('main-content').innerHTML = "";
+            document.getElementById("main-content").innerHTML = response;
+            getSubjectsToAssign();
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+    hideSideBarMenu();
+}
+
+function showTeachingType(){
+    document.getElementById('teaching-type-pane').style.display = 'block';
+}
+
+function hideTeachingType(){
+    document.getElementById('teaching-type-pane').style.display = 'none';
 }
 
 function showParentForm(){
@@ -173,6 +231,16 @@ function validateTextField(fieldID, errorPaneID, fieldName){
     return true;
 }
 
+function validateDropDown(selectID, errorPaneID, fieldName){
+    const value = document.getElementById(selectID).value;
+    if(value.indexOf("Choose")>=0 || value === null || value === ""){
+        document.getElementById(errorPaneID).innerHTML = fieldName+" must be selected";
+        return false;
+    }
+    document.getElementById(errorPaneID).innerHTML = "";
+    return true;
+}
+
 function validateNumberField(fieldID, errorPaneID, fieldName){
     const value = document.getElementById(fieldID).value;
     if(value === null){
@@ -243,6 +311,95 @@ function validateDate(dateFielID, errorPane){
 
 }
 
+const formatTeacherName =(title, firstname, surname, gender, othername)=>{
+    var formattedName;
+    if(gender === "Male"){
+        if(othername === ""){
+            formattedName =  title + " "+ firstname.charAt(0).toUpperCase() +". " + surname;
+        }else if(othername === null){
+            formattedName =  title + " "+ firstname.charAt(0).toUpperCase() +". " + surname;
+        }else{
+            formattedName = title + " "+ firstname.charAt(0).toUpperCase() +". " + othername.charAt(0).toUpperCase() +". " + surname;
+        }
+    }else{
+        if(othername === ""){
+            formattedName =  title + " "+ firstname +". " + surname;
+        }else if(othername === null){
+            formattedName =  title + " "+ firstname +". " + surname;
+        }
+        else{
+            formattedName = title + " "+ firstname +". " + othername.charAt(0).toUpperCase() +". " + surname;
+        }
+    }
+    return formattedName;
+}
+
+function getTeacherFormattedNames(id){
+    $.ajax({
+        type:'get',
+        url:'../../backend/App/getformattedlecturernames.php',
+        success: function (response){
+            let data = JSON.parse(response);
+            for(let i = 0; i<data.length; i++){
+                let name = document.createElement('option');
+                name.value = data[i].id;
+                if (data[i].othername != null && data[i].othername != ""){
+                    name.text = formatTeacherName(data[i].title, data[i].firstname, data[i].surname, data[i].gender, data[i].othername);
+                }else {
+                        name.text = formatTeacherName(data[i].title, data[i].firstname, data[i].surname, data[i].gender,"");
+                }
+                document.getElementById(id).appendChild(name);
+            }
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+}
+
+function getSubjectsToAssign(){
+    $.ajax({
+        type:'get',
+        url:'../../backend/App/getsubjectstoallocate.php',
+        success: function (response){
+            let data = JSON.parse(response);
+            var tableRow = "";
+            var s_n = 0;
+            for(let i = 0; i<data.length; i++){
+                s_n++;
+                if(s_n%2 != 0){
+                    tableRow += '<tr class="odd"><td>'+ s_n +'</td><td>' +
+                        '<select name="assigned-teacher" id="'+'assigned-teacher'+s_n+'" class="form-input">\n' +
+                        '                                        \n' +
+                        '                                    </select>' +
+                        '</td><td><span id="'+'subject_'+s_n+'">'+data[i].title+'</span></td></tr>';
+                }else{
+                    tableRow += '<tr><td>'+ s_n +'</td><td>' +
+                        '<select name="assigned-teacher" id="'+'assigned-teacher'+s_n+'" class="form-input">\n' +
+                        '                                        \n' +
+                        '                                    </select>' +
+                        '</td><td><span id="'+'subject_'+s_n+'">'+data[i].title+'</span></td></tr>';
+                }
+            }
+            document.getElementById('subject-assign-table-body').innerHTML = tableRow;
+            for (let j = 1; j<=data.length; j++){
+                getTeacherFormattedNames('assigned-teacher'+j);
+            }
+            document.getElementById('table-length').value = s_n;
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+}
+
+// function validateSubjectUpload(fieldID){
+//     if(document.getElementById(fieldID).value === "" || document.getElementById(fieldID).value === null){
+//         alert("Error! All fields are compulsory");
+//         return;
+//     }
+// }
+
 /***************End reusable utilities *************/
 
 function admitStudent(){
@@ -262,7 +419,7 @@ function admitStudent(){
     if(!validateDate('student-dob', 'student-dob-error')){
         return;
     }
-    if(!validateTextField('student-section', 'student-section-error', "Pupil's section")){
+    if(!validateDropDown('student-section', 'student-section-error', "Pupil's section")){
         return;
     }
     if(!validateTextField('student-state', 'student-state-error', "Pupil's State of origin")){
@@ -271,7 +428,7 @@ function admitStudent(){
     if(!validateTextField('student-lga', 'student-state-error', "Pupil's LGA")){
         return;
     }
-    if(!validateTextField('parent-title', 'parent-title-error', "Parent title")){
+    if(!validateDropDown('parent-title', 'parent-title-error', "Parent title")){
         return;
     }
     if(!validateTextField('parent-firstname', 'parent-firstname-error', "Parent firstname")){
@@ -294,6 +451,7 @@ function admitStudent(){
     }
 
     const admissionData ={
+        passport_id:document.getElementById('passport_id').value,
         firstname:document.getElementById('student-firstname').value,
         surname: document.getElementById('student-surname').value,
         othername: document.getElementById('student-othername').value,
@@ -343,6 +501,7 @@ function startup() {
         audio: false
     }).then(function(stream) {
         window.localStream = stream;
+        localStorage.setItem("videoFlag","on");
             video.srcObject = stream;
             video.play();
         }).catch(function(err) {
@@ -407,19 +566,23 @@ function previewPassport(obj){
             }else{
 
                 document.getElementById('photo').setAttribute('src', response);
-                console.log(response);
             }
         },
         error: function (error){
             alert(error);
         }
     })
-    // console.log(formData.get('tempPassport'));
 }
 
 function stopCapture(){
     localStream.getVideoTracks()[0].stop();
     video.src = "";
+}
+
+function getPassportId(fullPath){
+const pathArray = fullPath.split("/");
+return pathArray[pathArray.length-1];
+
 }
 
 function savePassport(){
@@ -434,8 +597,20 @@ function savePassport(){
         contentType: false,
         processData: false,
         success:function (response){
-            console.log(response);
-            stopCapture();
+            if(response == 1 || response == true){
+                alert("Passport photograph saved successfully");
+                document.getElementById('passport_id').value = getPassportId(formData.get('image'));
+                if(localStorage.getItem("videoFlag") === "on"){
+                    stopCapture();
+                    document.getElementById('passport-area').style.display = "none";
+                    document.getElementById('pupil-data').style.display = "block";
+                }else{
+                    document.getElementById('passport-area').style.display = "none";
+                    document.getElementById('pupil-data').style.display = "block";
+                }
+            }else {
+                console.log(response);
+            }
         },
         error:function (error){
             alert(error);
@@ -463,7 +638,11 @@ function getAllStudents(){
                 cell1.innerHTML = s_n;
                 cell2.innerHTML = pupildata[i].firstname;
                 cell3.innerHTML = pupildata[i].surname;
-                cell4.innerHTML = 'Nil';
+                if (pupildata[i].othername === "NULL" || pupildata[i].othername === null || pupildata[i] === ""){
+                    cell4.innerHTML = 'Nil';
+                }else{
+                    cell4.innerHTML = pupildata[i].othername;
+                }
                 cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
                 cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
 
@@ -475,6 +654,7 @@ function getAllStudents(){
                 row.appendChild(cell6);
 
                 document.getElementById('view-table-body').appendChild(row);
+                s_n++;
             }
         },
         error: function (error){
@@ -502,10 +682,14 @@ function getStudentsBySection(e){
                 let cell5 = document.createElement('td');
                 let cell6 = document.createElement('td');
 
-                cell1.innerHTML = s_n;
+                cell1.innerHTML = s_n+"";
                 cell2.innerHTML = pupildata[i].firstname;
                 cell3.innerHTML = pupildata[i].surname;
-                cell4.innerHTML = 'Nil';
+                if (pupildata[i].othername === "NULL" || pupildata[i].othername === null || pupildata[i] === ""){
+                    cell4.innerHTML = 'Nil';
+                }else{
+                    cell4.innerHTML = pupildata[i].othername;
+                }
                 cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
                 cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
 
@@ -517,6 +701,7 @@ function getStudentsBySection(e){
                 row.appendChild(cell6);
 
                 document.getElementById('view-table-body').appendChild(row);
+                s_n++;
             }
         },
         error: function (error){
@@ -526,7 +711,170 @@ function getStudentsBySection(e){
 }
 
 function getStudentsByClass(e){
-    alert("by class");
+    const pupilClass = {pupilClass:e.value};
+    $.ajax({
+        type:'post',
+        url: '../../backend/App/get-all-pupil-by-class.php',
+        data: pupilClass,
+        success: function (response){
+            console.log(response);
+            // let pupildata = JSON.parse(response);
+            // let s_n = 1;
+            // document.getElementById('view-table-body').innerHTML = "";
+            // for(let i =0; i<pupildata.length; i++) {
+            //     let row = document.createElement('tr');
+            //     let cell1 = document.createElement('td');
+            //     let cell2 = document.createElement('td');
+            //     let cell3 = document.createElement('td');
+            //     let cell4 = document.createElement('td');
+            //     let cell5 = document.createElement('td');
+            //     let cell6 = document.createElement('td');
+            //
+            //     cell1.innerHTML = s_n+"";
+            //     cell2.innerHTML = pupildata[i].firstname;
+            //     cell3.innerHTML = pupildata[i].surname;
+            //     if (pupildata[i].othername === "NULL" || pupildata[i].othername === null || pupildata[i] === ""){
+            //         cell4.innerHTML = 'Nil';
+            //     }else{
+            //         cell4.innerHTML = pupildata[i].othername;
+            //     }
+            //     cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
+            //     cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
+            //
+            //     row.appendChild(cell1);
+            //     row.appendChild(cell2);
+            //     row.appendChild(cell3);
+            //     row.appendChild(cell4);
+            //     row.appendChild(cell5);
+            //     row.appendChild(cell6);
+            //
+            //     document.getElementById('view-table-body').appendChild(row);
+            //     s_n++;
+            // }
+        },
+        error: function (error){
+            console.log(error);
+        }
+    })
+}
+
+/*********************** Subject Upload Styling****************/
+
+function addSubject(){
+    if(subjectCount<5){
+        subjectCount++;
+        document.getElementById("subject-"+subjectCount).style.display = "block";
+        if(subjectCount==5){
+            document.getElementById('add-subject-btn-span').style.display = "none";
+        }
+    }
+}
+
+function uploadSubject(){
+    const subjects = [];
+    for (let i =1; i<=subjectCount; i++){
+        const subjectArray = [];
+        /**
+         * Validate subject title
+         */
+        if(document.getElementById('subject-title-'+i).value === "" || document.getElementById('subject-title-'+i).value === null){
+            alert("Error! All fields are compulsory");
+            return;
+        }
+        subjectArray.push(document.getElementById('subject-title-'+i).value);
+
+        /**
+         * Validate subject code
+         */
+        if(document.getElementById('subject-code-'+i).value === "" || document.getElementById('subject-code-'+i).value === null){
+            alert("Error! All fields are compulsory");
+            return;
+        }
+        subjectArray.push(document.getElementById('subject-code-'+i).value);
+
+        if(document.getElementById('subject-section-'+i).value === "" || document.getElementById('subject-section-'+i).value === null){
+            alert("Error! All fields are compulsory");
+            return;
+        }
+        subjectArray.push(document.getElementById('subject-section-'+i).value);
+        subjects.push(subjectArray);
+    }
+
+    $.ajax({
+        type:'post',
+        url:'../../backend/App/upload-subjects.php',
+        data: {subjects:JSON.stringify(subjects)},
+        success: function (response){
+            if(response === 'success'){
+                alert(subjectCount+" Subject(s) uploaded successfully");
+            }else{
+                alert(response);
+            }
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
+}
+
+function createTeacher(){
+    /**
+     * Validate inputs
+     */
+    if(!validateDropDown('teacher-title','teacher-title-error','Title')){
+        return;
+    }
+    if(!validateTextField('teacher-firstname', 'teacher-firstname-error','First Name')){
+        return;
+    }
+    if (!validateTextField('teacher-surname','teacher-surname-error', 'Surname')){
+        return;
+    }
+    if(!validateRadioButton('teacher-gender','teacher-gender-error', 'Gender')){
+        return;
+    }
+    if(!validatePhoneNumber('teacher-phone-number','teacher-phone-number-error')){
+        return;
+    }
+    if(!validateEmail('teacher-email', 'teacher-email-error')){
+        return;
+    }
+    if (!validateRadioButton('employment-type','teacher-employment-type-error')){
+
+    }
+
+    const emplomentType = $('input[name = "employment-type"]:checked').val();
+    const teacherData = {
+        title: document.getElementById('teacher-title').value,
+        firstname: document.getElementById('teacher-firstname').value,
+        surname: document.getElementById('teacher-surname').value,
+        othername: document.getElementById('teacher-othername').value,
+        gender: $('input[name = "teacher-gender"]:checked').val(),
+        phoneNumber: document.getElementById('teacher-phone-number').value,
+        email: document.getElementById('teacher-email').value,
+        employmentType: emplomentType,
+        teachingType:""
+    }
+    if(emplomentType === 'Full'){
+        if(!validateRadioButton('teaching-type', 'teacher-teaching-type-error')){
+            return;
+        }
+        teacherData.teachingType = $('input[name="teaching-type"]:checked').val();
+    }else{
+        teacherData.teachingType = 'Subject';
+    }
+
+    $.ajax({
+        type:'post',
+        url:'../../backend/App/create-teacher.php',
+        data:teacherData,
+        success: function (response){
+            alert(response);
+        },
+        error: function (error){
+            alert(error);
+        }
+    })
 }
 
 

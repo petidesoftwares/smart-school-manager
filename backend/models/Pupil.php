@@ -11,6 +11,7 @@ class Pupil extends Model
         'firstname',
         'admitted_into',
         'gender',
+        'passport_id',
         'parent_id',
         'date_of_birth',
         'section',

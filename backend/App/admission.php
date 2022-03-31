@@ -1,17 +1,24 @@
 <?php
 
 use Backend\Authentication\Encryptor;
+use Backend\Connection\DBConnection;
 use Backend\Controllers\AdminController;
 use Backend\Controllers\ParentsController;
 use Backend\Controllers\PupilController;
+use Backend\Controllers\RegistrationController;
 use Backend\Models\Parents;
 use Backend\Models\Pupil;
 
 include_once ("../../vendor/autoload.php");
     if(isset($_POST)){
-        $admitted_into = $_POST['admitted_into'];
+
+        /**
+         * Receive input data from frontend form
+         */
+        $admitted_into = strtolower($_POST['admitted_into']);
         $date_of_birth = $_POST['date_of_birth'];
         $firstname= $_POST['firstname'];
+        $passpoertID = $_POST['passport_id'];
         $lga = $_POST['lga'];
         $othername= $_POST['othername'];
         $parent_email= $_POST['parent_email'];
@@ -29,30 +36,40 @@ include_once ("../../vendor/autoload.php");
 
         /************ Create Parent *****************/
 
-        $parentData = [
-            'title'=>$parent_title,
-            'email' => $parent_email,
-            'firstname' => $parent_firstname,
-            'surname' => $parent_surname,
-            'mobile_number' => $parent_phone,
-            'gender' => $parent_gender,
-            'password' => hash(Encryptor::ALGORITHM,$parent_phone),
-            'occupation' => $parent_occupation,
-            'created_at' => date("Y-m-d h:i:sa"),
-            'updated_at' => date("Y-m-d h:i:sa")
-        ];
+        $conn = new DBConnection();
+        $con = $conn->connect();
 
-        $parentController = new ParentsController();
-        $createParent = $parentController->store($parentData);
-        if($createParent === "successful"){
+        $con->begin_transaction();
+
+        try{
+            $parentData = [
+                'title'=>$parent_title,
+                'email' => $parent_email,
+                'firstname' => $parent_firstname,
+                'surname' => $parent_surname,
+                'mobile_number' => $parent_phone,
+                'gender' => $parent_gender,
+                'password' => hash(Encryptor::ALGORITHM,$parent_phone),
+                'occupation' => $parent_occupation,
+                'created_at' => date("Y-m-d h:i:sa"),
+                'updated_at' => date("Y-m-d h:i:sa")
+            ];
+
+            $parentController = new ParentsController();
+            $admin = new AdminController();
+            $createParent = $parentController->store($parentData);
+
+            /*********Use Parent ID to create pupil ************/
+
             $parent = new Parents();
             $pupilData = [
                 'surname' => $surname,
                 'firstname' => $firstname,
                 'gender' => $student_gender,
+                'passport_id'=>$passpoertID,
                 'date_of_birth' => $date_of_birth,
                 'admitted_into' => $admitted_into,
-                'parent_id'=> $parent->getLastID(),
+                'parent_id'=> $parent->getLastID($con),
                 'section' => $section,
                 'lga_id' => $lga,
                 'state_id' => $state_of_origin,
@@ -62,20 +79,37 @@ include_once ("../../vendor/autoload.php");
 
             $pupilController = new PupilController();
             $result = $pupilController->store($pupilData);
-            if($result === 'successful'){
-                if($othername !== "" && $othername !== null){
-                    $pupil = new Pupil();
-                    $pupilOthernameArray =['pupil_id'=> $pupil->getLastID(),'othername'=>$othername];
-                    $pupilOthername = new AdminController();
-                    $createOthername = $pupilOthername->createPupilOthername($pupilOthernameArray);
-                }else{
-                    echo $result;
-                }
-                echo "Successful: A new record has been successfully created";
-            }else{
-                echo "Error! An error occurred while creating record. Please try again later". $result;
+
+            /*********Use pupil ID to create other name***********/
+
+            if($othername !== "" && $othername !== null){
+                $pupil = new Pupil();
+                $pupilOthernameArray =['pupil_id'=> $pupil->getLastID(),'othername'=>$othername];
+                $createOthername = $admin->createPupilOthername($pupilOthernameArray);
             }
-        }else{
-            echo "Error! An error occurred while creating record. Please try again later". $createParent;
+
+            /**
+             * Auto register pupil at time the of admission
+             */
+            $subject = new SubjectController();
+            $reg = new RegistrationController();
+            $session = $admin->getCurrentSession($con);
+            $currentSession = json_decode($session);
+            $code = json_decode($subject->getSubjectCode($con,['section'=>'primary']),false);
+            for($i =0; $i<count($code);$i++){
+                $regData = [
+                    'pupil_id' => $pupil->getLastID($con),
+                    'subject_code' =>$code[$i]->code,
+                    'session' => $session[0]->session,
+                    'section' => $section,
+                    'current_class'=>$admitted_into
+                ];
+                $reg->store($con, $regData);
+            }
+            $con->commit();
+            echo "Successful: A new record has been successfully created";
+        }catch (mysqli_sql_exception $exception){
+            $con->rollback();
+            throw $exception;
         }
     }

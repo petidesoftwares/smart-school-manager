@@ -56,7 +56,7 @@ body{
 
 .logo{
     margin: 10px;
-    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/logo_square.PNG");
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),url("../images/kip-enai-logo.jpg");
     border-radius: 35px;
     height: 70px;
     width: 70px;
@@ -132,6 +132,13 @@ body{
     height: 450px;
     overflow-y: auto;
 }
+
+/****************Display Table****************/
+.odd{
+    background-color: grey;
+    color: whitesmoke;
+}
+/*********************************************/
 
 #pupil-passport-file-pane{
     display: none;
@@ -244,9 +251,15 @@ body{
 }
 
 .wrap-form-element input{
-    width: 100%;
+    width: 98%;
+    margin: 2%;
 }
-#student-gender-male, #student-gender-female, #parent-gender-male, #parent-gender-female{
+
+.wrap-form-element label{
+    margin-left: 2%;
+}
+#student-gender-male, #student-gender-female, #parent-gender-male, #parent-gender-female, #teacher-male,
+#teacher-female, #fulltime-employment-type, #parttime-employment-type, #subject-teaching-type, #class-teaching-type{
     width: 40px;
     display: inline;
 }
@@ -341,6 +354,37 @@ label[for="student-gender-male"], label[for="parent-gender-male"]{
 }
 
 /************End of View Page***********/
+
+/***********Subject upload page********/
+#subject-2,#subject-3, #subject-4, #subject-5{
+    display: none;
+}
+#add-subject-btn-span{
+    display: flex;
+    justify-content: center;
+    align-content: baseline;
+    font-size: large;
+    width: 26%;
+    border: solid 1px white;
+    margin-left: 72%;
+    cursor: pointer;
+}
+
+#add-subject-btn{
+    margin-left: 8px;
+}
+/**********End of subject upload*******/
+
+/************Assign subject/class view ****************/
+#assign-subject-form th, tr, td{
+    border: solid 0px darkslategray;
+    border-collapse: collapse;
+}
+#assign-subject-form table,th, tr, td{
+    border-collapse: collapse;
+    padding: 5px;
+}
+/*****************************************************/
 
 /*******************Footer***************/
 .footer{
@@ -524,8 +568,13 @@ label[for="student-gender-male"], label[for="parent-gender-male"]{
         font-size: large;
     }
 
-    .view-record-pane{
-        width: auto;
+    /*.view-record-pane{*/
+    /*    width: 100%;*/
+    /*    overflow-x: auto;*/
+    /*}*/
+    #view-record-pane{
+        width: 306px;
+        border: solid 1px darkslategray;
         overflow-x: auto;
     }
 
@@ -599,7 +648,7 @@ label[for="student-gender-male"], label[for="parent-gender-male"]{
     }
 
     .form-input{
-        font-size: x-large;
+        font-size: large;
     }
 
     .auth-btn{
@@ -620,6 +669,14 @@ label[for="student-gender-male"], label[for="parent-gender-male"]{
 
     .passport-btn{
         width: 40%;
+    }
+
+    /*********Upload Course Mobile View********/
+
+    #add-subject-btn-span{
+        width: 50%;
+        font-size: medium;
+        margin-left: 48%;
     }
 
 /*******************Footer***************/

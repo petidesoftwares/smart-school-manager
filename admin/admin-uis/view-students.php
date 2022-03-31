@@ -36,7 +36,7 @@
         </select>
     </span>
 </div>
-<div class="col-12 view-record-pane">
+<div class="col-12 view-record-pane" id="view-record-pane">
     <table class="record-display-table">
         <thead>
             <th>S/N</th>

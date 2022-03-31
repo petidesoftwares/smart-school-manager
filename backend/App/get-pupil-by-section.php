@@ -9,7 +9,7 @@ include_once ("../../vendor/autoload.php");
         $con = $conn->connect();
 
         $section = $_POST['section'];
-        $keyArray = ['section'=>$section];
+        $keyArray = ['section'=>strtolower($section)];
         $pupils = new AdminController();
         echo $pupils->getPupilBySection($con, $keyArray);
     }

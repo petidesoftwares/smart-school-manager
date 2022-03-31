@@ -130,8 +130,16 @@ class Model
         return DatabaseUtils::getAllTableData($con, $this->getTable());
     }
 
+    public function  allWithRelationship($con, $relatedTable){
+        return DatabaseUtils::queryAllWithRelationship($con,$this->getTable(), $relatedTable);
+    }
+
     public function  allWithKey($con, $keyName=[]){
-        return DatabaseUtils::getAllByKey($con, $this->table, $keyName);
+        return DatabaseUtils::getAllByKey($con, $this->getTable(), $keyName);
+    }
+
+    public function getAllWithRelationshipAndConstraints($con, $relatedTable, $keyName=[]){
+        return DatabaseUtils::queryWithDirectRelationshipAndConstraints($con, $this->getTable(),$relatedTable,$keyName);
     }
 
     public function getLastID($con){

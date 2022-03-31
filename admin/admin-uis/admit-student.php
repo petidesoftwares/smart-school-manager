@@ -1,7 +1,7 @@
         <h3 class="col-12 pane-title">Admit New Student</h3>
         <div class="col-1 form-spacer"></div>
         <div class="col-8" id="admission-form">
-            <div class="contentarea">
+            <div class="contentarea" id="passport-area">
                 <h3>
                     Take Passport
                 </h3>
@@ -28,7 +28,10 @@
 
             <!-- Pupil's Data -->
 
-            <div class="pupil-data">
+            <div class="pupil-data" id="pupil-data">
+                <div>
+                    <input type="hidden" name="passport_id" id="passport_id">
+                </div>
                 <span class="col-12 wrap-form-element">
                     <label>First Name: *</label><br>
                     <input type="text" id="student-firstname" class="form-input">
@@ -65,6 +68,7 @@
                     <select id="student-section" class="form-input">
                         <option>Choose Section</option>
                         <option value="creche">Creche</option>
+                        <option value="pre-nursery">Pre-Nursery</option>
                         <option value="nursery">Nursery</option>
                         <option value="primary">Primary</option>
                         <option value="secondary">Secondary</option>

@@ -21,16 +21,28 @@ class DatabaseUtils
         return json_encode($items);
     }
 
+    public static function queryAllWithRelationship($con, $table,$relatedTable){
+        $query = 'SELECT * FROM '.$table.','.$relatedTable;
+        $stm = $con->prepare($query);
+        $stm->execute();
+        $items =[];
+        $result = $stm->get_result();
+        while ($rows = $result->fetch_assoc()){
+            $items[] = $rows;
+        }
+        return json_encode($items);
+    }
+
     public static function getAllByKey($con, $table, $keyName){
         $itemsArray = [];
         $paramDataType = "";
-        $searckKeys = "";
+        $searchKeys = "";
         foreach ($keyName as $key=>$datum){
             if($key === array_key_last($keyName)){
-                $searckKeys .=$key."=?";
+                $searchKeys .=$key."=?";
                 $itemsArray[] = $datum;
             }else{
-                $searckKeys .=$key."=? AND ";
+                $searchKeys .=$key."=? AND ";
                 $itemsArray[] = $datum;
             }
 
@@ -53,7 +65,7 @@ class DatabaseUtils
             }
         }
 
-        $query = 'SELECT * FROM '.$table.' WHERE '.$searckKeys;
+        $query = 'SELECT * FROM '.$table.' WHERE '.$searchKeys;
         $stm = $con->prepare($query);
         $stm->bind_param($paramDataType, ...$itemsArray);
         $stm->execute();
@@ -64,6 +76,51 @@ class DatabaseUtils
         }
         return json_encode($users);
     }
+
+    public static function queryWithDirectRelationshipAndConstraints($con, $table, $relatedTable, $keyName){
+        $itemsArray = [];
+        $paramDataType = "";
+        $searchKeys = "";
+        foreach ($keyName as $key=>$datum){
+            if($key === array_key_last($keyName)){
+                $searchKeys .=$key."=?";
+                $itemsArray[] = $datum;
+            }else{
+                $searchKeys .=$key."=? AND ";
+                $itemsArray[] = $datum;
+            }
+
+            $dataType = gettype($datum);
+            switch ($dataType){
+                case "integer":
+                    $paramDataType .="i";
+                    break;
+                case "double":
+                    $paramDataType .="d";
+                    break;
+                case "string":
+                    $paramDataType .="s";
+                    break;
+                case "blob":
+                    $paramDataType .="b";
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        $query = 'SELECT * FROM '.$table.','.$relatedTable.' WHERE '.$table.'.id = '.$relatedTable.'.id AND '.$searchKeys;
+        $stm = $con->prepare($query);
+        $stm->bind_param($paramDataType, ...$itemsArray);
+        $stm->execute();
+        $users =[];
+        $result = $stm->get_result();
+        while ($rows = $result->fetch_assoc()){
+            $users[] = $rows;
+        }
+        return json_encode($users);
+    }
+
     public static function createQuery($con, $table, $data){
         $columns = "";
         $dataArray =[];
@@ -152,6 +209,17 @@ class DatabaseUtils
         }
         $stm = $con->prepare($query);
         $stm->bind_param($paramDataType, ...$dataArray);
+        $stm->execute();
+        $result = $stm->get_result();
+        $resultArray = [];
+        while($row = $result->fetch_assoc()){
+            $resultArray[] = $row;
+        }
+        return json_encode($resultArray);
+    }
+
+    public static function queryDirect($con, $query){
+        $stm = $con->prepare($query);
         $stm->execute();
         $result = $stm->get_result();
         $resultArray = [];
