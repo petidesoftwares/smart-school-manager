@@ -31,8 +31,8 @@ class DBConnection
     }
     public function connect(){
         $con = new MySQLi($this->cleardb_server, $this->cleardb_username, $this->cleardb_password,$this->cleardb_db);
-        if($con->connect_errorno){
-            return "Connection failed. " .$con->connect_error;
+        if($con->connect_errno){
+            return "Connection failed. " .$con->connect_errno;
         }
         return $con;
     }
