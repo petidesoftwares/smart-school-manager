@@ -16,13 +16,12 @@ class DBConnection
     const PASSWORD = "7c05bc7e";
     CONST DB = "heroku_f356ae46764aba9";
 
-//    const SERVERNAME = "localhost";
-//    const USERNAME = "root";
-//    const PASSWORD = "";
-//    CONST DB = "smart_school_manager";
+    public $active_group;
+    public $query_builder;
 
     public function __construct(){
-
+        $this->active_group = 'default';
+        $this->query_builder = FALSE;
     }
     public function connect(){
         $con = new MySQLi(self::SERVERNAME, self::USERNAME, self::PASSWORD);
