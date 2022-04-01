@@ -3,6 +3,7 @@
 
 namespace Backend\Controllers;
 
+
 use Backend\Database\DatabaseUtils;
 use Backend\Models\Model;
 use Backend\Models\Pupil;
@@ -13,7 +14,6 @@ use Backend\Models\TeacherOthername;
 
 class AdminController
 {
-
     /**
      * Store pupil record to database
      * @param array $data : Array of pupil record
@@ -73,5 +73,4 @@ class AdminController
         $subject = new Subject();
         return $subject->all($con);
     }
-
 }

@@ -9,7 +9,6 @@ if(isset($_POST)){
     $conn = new DBConnection();
     $con = $conn->connect();
 
-    echo "connetion successful";
-//    $pupils = new AdminController();
-//    echo $pupils->getAllPupils($con);
+    $pupils = new AdminController();
+    echo $pupils->getAllPupils($con);
 }
