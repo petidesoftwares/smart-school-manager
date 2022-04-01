@@ -12,8 +12,4 @@ if(isset($_POST)){
 
     $pupils = new AdminController();
     echo $pupils->getAllPupils($con);
-
-//    $pupils = new Pupil();
-//    $othername = new PupilOthername();
-//    return $pupils->allWithRelationship($con,$othername->getTable());
 }
