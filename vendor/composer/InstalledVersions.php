@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'aeb66cd31db84a68397452b38a544e57ef5b97bb',
+    'reference' => '811bacd42f47b52a0ebb9148642c76da5b5913d4',
     'name' => 'dell/ssm',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'aeb66cd31db84a68397452b38a544e57ef5b97bb',
+      'reference' => '811bacd42f47b52a0ebb9148642c76da5b5913d4',
     ),
   ),
 );

@@ -11,7 +11,7 @@ class ComposerStaticInitd77f72ebc19b94d7a79bc80eeae7de90
         array (
             'Backend\\Models\\' => 15,
             'Backend\\Database\\' => 17,
-            'Backend\\Conttrollers\\' => 21,
+            'Backend\\Controllers\\' => 20,
             'Backend\\Connection\\' => 19,
             'Backend\\Authentication\\' => 23,
             'Backend\\' => 8,
@@ -27,7 +27,7 @@ class ComposerStaticInitd77f72ebc19b94d7a79bc80eeae7de90
         array (
             0 => __DIR__ . '/../..' . '/backend/database',
         ),
-        'Backend\\Conttrollers\\' => 
+        'Backend\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/backend/controllers',
         ),

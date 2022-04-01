@@ -17,7 +17,7 @@
             "Backend\\Authentication\\": "backend/authentication/",
             "Backend\\Models\\": "backend/models",
             "Backend\\Database\\" : "backend/database",
-            "Backend\\Conttrollers\\": "backend/controllers"
+            "Backend\\Controllers\\": "backend/controllers/"
         }
     }
 }

@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Backend\\Models\\' => array($baseDir . '/backend/models'),
     'Backend\\Database\\' => array($baseDir . '/backend/database'),
-    'Backend\\Conttrollers\\' => array($baseDir . '/backend/controllers'),
+    'Backend\\Controllers\\' => array($baseDir . '/backend/controllers'),
     'Backend\\Connection\\' => array($baseDir . '/backend/connection'),
     'Backend\\Authentication\\' => array($baseDir . '/backend/authentication'),
     'Backend\\' => array($baseDir . '/backend'),
