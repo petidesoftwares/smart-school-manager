@@ -623,40 +623,39 @@ function getAllStudents(){
         type:"post",
         url:'../../backend/App/get-all-students.php',
         success: function (response){
-            console.log(response);
-            // let pupildata = JSON.parse(response);
-            // let s_n = 1;
-            // document.getElementById('view-table-body').innerHTML = "";
-            // for(let i =0; i<pupildata.length; i++){
-            //     let row = document.createElement('tr');
-            //     let cell1 = document.createElement('td');
-            //     let cell2 = document.createElement('td');
-            //     let cell3 = document.createElement('td');
-            //     let cell4 = document.createElement('td');
-            //     let cell5 = document.createElement('td');
-            //     let cell6 = document.createElement('td');
-            //
-            //     cell1.innerHTML = s_n;
-            //     cell2.innerHTML = pupildata[i].firstname;
-            //     cell3.innerHTML = pupildata[i].surname;
-            //     if (pupildata[i].othername === "NULL" || pupildata[i].othername === null || pupildata[i] === ""){
-            //         cell4.innerHTML = 'Nil';
-            //     }else{
-            //         cell4.innerHTML = pupildata[i].othername;
-            //     }
-            //     cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
-            //     cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
-            //
-            //     row.appendChild(cell1);
-            //     row.appendChild(cell2);
-            //     row.appendChild(cell3);
-            //     row.appendChild(cell4);
-            //     row.appendChild(cell5);
-            //     row.appendChild(cell6);
-            //
-            //     document.getElementById('view-table-body').appendChild(row);
-            //     s_n++;
-            // }
+            let pupildata = JSON.parse(response);
+            let s_n = 1;
+            document.getElementById('view-table-body').innerHTML = "";
+            for(let i =0; i<pupildata.length; i++){
+                let row = document.createElement('tr');
+                let cell1 = document.createElement('td');
+                let cell2 = document.createElement('td');
+                let cell3 = document.createElement('td');
+                let cell4 = document.createElement('td');
+                let cell5 = document.createElement('td');
+                let cell6 = document.createElement('td');
+
+                cell1.innerHTML = s_n;
+                cell2.innerHTML = pupildata[i].firstname;
+                cell3.innerHTML = pupildata[i].surname;
+                if (pupildata[i].othername === "NULL" || pupildata[i].othername === null || pupildata[i] === ""){
+                    cell4.innerHTML = 'Nil';
+                }else{
+                    cell4.innerHTML = pupildata[i].othername;
+                }
+                cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
+                cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
+
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                row.appendChild(cell3);
+                row.appendChild(cell4);
+                row.appendChild(cell5);
+                row.appendChild(cell6);
+
+                document.getElementById('view-table-body').appendChild(row);
+                s_n++;
+            }
         },
         error: function (error){
             console.log(error);

@@ -15,6 +15,7 @@ class DatabaseUtils
         $stm->execute();
         $items =[];
         $result = $stm->get_result();
+        $stm->close();
         while ($rows = $result->fetch_assoc()){
             $items[] = $rows;
         }
@@ -72,6 +73,7 @@ class DatabaseUtils
         $stm->execute();
         $users =[];
         $result = $stm->get_result();
+        $stm->close();
         while ($rows = $result->fetch_assoc()){
             $users[] = $rows;
         }
@@ -116,6 +118,7 @@ class DatabaseUtils
         $stm->execute();
         $users =[];
         $result = $stm->get_result();
+        $stm->close();
         while ($rows = $result->fetch_assoc()){
             $users[] = $rows;
         }
@@ -160,7 +163,7 @@ class DatabaseUtils
         $stmtQuery = $con->prepare($query);
         $stmtQuery->bind_param($paramDataType, ...$dataArray);
         $stmtQuery->execute();
-
+        $stmtQuery->close();
         return "successful";
     }
 
@@ -168,6 +171,7 @@ class DatabaseUtils
         $stm = $con->prepare('SELECT id FROM '.$table.' ORDER BY id DESC');
         $stm->execute();
         $result = $stm->get_result()->fetch_assoc();
+        $stm->close();
         return $result['id'];
     }
 
@@ -180,6 +184,7 @@ class DatabaseUtils
         $stm = $con->prepare($queryDefault);
         $stm->bind_param("sss", $db,$table, $attribute);
         $result = $stm->execute();
+        $stm->close();
         while($row = $result->fetch_assoc()){
             return $row['COLUMN_DEFAULT'];
         }
@@ -212,6 +217,7 @@ class DatabaseUtils
         $stm->bind_param($paramDataType, ...$dataArray);
         $stm->execute();
         $result = $stm->get_result();
+        $stm->close();
         $resultArray = [];
         while($row = $result->fetch_assoc()){
             $resultArray[] = $row;
@@ -223,6 +229,7 @@ class DatabaseUtils
         $stm = $con->prepare($query);
         $stm->execute();
         $result = $stm->get_result();
+        $stm->close();
         $resultArray = [];
         while($row = $result->fetch_assoc()){
             $resultArray[] = $row;
