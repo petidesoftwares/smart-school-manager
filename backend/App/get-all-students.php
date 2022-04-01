@@ -3,7 +3,7 @@
 use Backend\Connection\DBConnection;
 use Backend\Controllers\AdminController;
 
-include_once ("../../vendor/autoload.php");
+include_once ("../vendor/autoload.php");
 
 if(isset($_POST)){
     $conn = new DBConnection();
