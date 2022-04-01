@@ -30,22 +30,23 @@ class DBConnection
         $this->query_builder = FALSE;
     }
     public function connect(){
-        $con = new MySQLi($this->cleardb_server, $this->cleardb_username, $this->cleardb_password);
-        if($con->connect_error){
-            die("Connection failed. " .$con->connect_error);
-        }
-        $db = $con->select_db($this->cleardb_db);
-        if($db === false){
-            die("Error: DB selection failed".$con->error);
-        }
+        $con = mysqli_connect($this->cleardb_server,$this->cleardb_username,$this->cleardb_password,$this->cleardb_db) or die('No Connection Established');
+//        $con = new MySQLi($this->cleardb_server, $this->cleardb_username, $this->cleardb_password);
+//        if($con->connect_error){
+//            die("Connection failed. " .$con->connect_error);
+//        }
+//        $db = $con->select_db($this->cleardb_db);
+//        if($db === false){
+//            die("Error: DB selection failed".$con->error);
+//        }
         return $con;
     }
-
-    public function getClearDB(){
-        return $this->cleardb_db;
-    }
-
-    public function closeConnection($con){
-        $con->close();
-    }
+//
+//    public function getClearDB(){
+//        return $this->cleardb_db;
+//    }
+//
+//    public function closeConnection($con){
+//        $con->close();
+//    }
 }
