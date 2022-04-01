@@ -27,6 +27,7 @@ class DatabaseUtils
         $stm->execute();
         $items =[];
         $result = $stm->get_result();
+        $stm->close();
         while ($rows = $result->fetch_assoc()){
             $items[] = $rows;
         }
