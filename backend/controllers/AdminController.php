@@ -14,6 +14,9 @@ use Backend\Models\TeacherOthername;
 
 class AdminController
 {
+    public function __construct(){
+        
+    }
     /**
      * Store pupil record to database
      * @param array $data : Array of pupil record
