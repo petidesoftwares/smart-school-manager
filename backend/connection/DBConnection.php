@@ -30,19 +30,19 @@ class DBConnection
         $this->query_builder = FALSE;
     }
     public function connect(){
-        $con = new MySQLi(self::SERVERNAME, self::USERNAME, self::PASSWORD);
+        $con = new MySQLi($this->cleardb_server, $this->cleardb_username, $this->cleardb_password);
         if($con->connect_error){
             die("Connection failed. " .$con->connect_error);
         }
-        $db = $con->select_db(self::DB);
+        $db = $con->select_db($this->cleardb_db);
         if($db === false){
             die("Error: DB selection failed".$con->error);
         }
         return $con;
     }
 
-    public function getDB(){
-        return self::DB;
+    public function getClearDB(){
+        return $this->cleardb_db;
     }
 
     public function closeConnection($con){
