@@ -3,6 +3,8 @@
 use Backend\Connection\DBConnection;
 use Backend\Controllers\AdminController;
 use Backend\Models\Model;
+use Backend\Models\Pupil;
+use Backend\Models\PupilOthername;
 
 include_once ("../../vendor/autoload.php");
 
