@@ -15,7 +15,7 @@ use Backend\Models\TeacherOthername;
 class AdminController
 {
     public function __construct(){
-        
+
     }
     /**
      * Store pupil record to database

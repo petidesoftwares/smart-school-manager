@@ -8,7 +8,6 @@ include_once ("../../vendor/autoload.php");
 if(isset($_POST)){
     $conn = new DBConnection();
     $con = $conn->connect();
-    echo get_class($conn);
-//    $pupils = new AdminController();
-//    echo $pupils->getAllPupils($con);
+    $pupils = new AdminController();
+    echo $pupils->getAllPupils($con);
 }
