@@ -156,6 +156,74 @@ function showPassportFileUpload(){
     document.getElementById('capture-btn-pane').style.display = 'none';
 }
 
+/*****************New updates 02/04/2022*************/
+function showViewTeacherPane(){
+
+    $.ajax({
+        type: 'GET',
+        url: '../../backend/App/get-all-teachers.php',
+        success: function (serverResponse){
+            const teachersDetails = JSON.parse(serverResponse);
+
+            $.ajax({
+                type: "post",
+                url:"../admin-uis/view-teachers.php",
+                success: function (response){
+                    document.getElementById('main-content').innerHTML = "";
+                    document.getElementById("main-content").innerHTML = response;
+
+                    //Extract data from server and populated created table
+                    let s_n = 1;
+                    document.getElementById('view-teachers-table-body').innerHTML = "";
+                    for(let i =0; i<teachersDetails.length; i++) {
+                        let row = document.createElement('tr');
+                        let cell1 = document.createElement('td');
+                        let cell2 = document.createElement('td');
+                        let cell3 = document.createElement('td');
+                        let cell4 = document.createElement('td');
+                        let cell5 = document.createElement('td');
+                        let cell6 = document.createElement('td');
+                        let cell7 = document.createElement('td');
+                        let cell8 = document.createElement('td');
+
+                        cell1.innerHTML = s_n;
+                        cell2.innerHTML = teachersDetails[i].firstname;
+                        cell3.innerHTML = teachersDetails[i].surname;
+                        if (teachersDetails[i].othername === "NULL" || teachersDetails[i].othername === null || teachersDetails[i] === "") {
+                            cell4.innerHTML = 'Nil';
+                        } else {
+                            cell4.innerHTML = teachersDetails[i].othername;
+                        }
+                        cell5.innerHTML = teachersDetails[i].qualification;
+                        cell6.innerHTML = '<button onclick="viewParent(' + teachersDetails[i].id + ')">view</button>';
+                        cell7.innerHTML = '<span><img src="../../statics/images/icons/edit_black_24dp.svg" onclick="editTeacher(' + teachersDetails[i].id + ')"></span>';
+                        cell8.innerHTML = '<span><img src="../../statics/images/icons/delete_black_24dp.svg" onclick="deleteTeacher(' + teachersDetails[i].id + ')"></span>';
+
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        row.appendChild(cell3);
+                        row.appendChild(cell4);
+                        row.appendChild(cell5);
+                        row.appendChild(cell6);
+                        row.appendChild(cell7);
+                        row.appendChild(cell8);
+
+                        document.getElementById('view-teachers-table-body').appendChild(row);
+                        s_n++;
+                    }
+                },
+                error: function (error){
+                    alert(error);
+                }
+            })
+        },
+        error: function (serverError){
+            alert(serverError);
+        }
+    })
+    hideSideBarMenu();
+}
+
 /**************Reusable Utilities *****************/
 
 function getTitle(id){
@@ -372,13 +440,13 @@ function getSubjectsToAssign(){
                         '<select name="assigned-teacher" id="'+'assigned-teacher'+s_n+'" class="form-input">\n' +
                         '                                        \n' +
                         '                                    </select>' +
-                        '</td><td><span id="'+'subject_'+s_n+'">'+data[i].title+'</span></td></tr>';
+                        '</td><td><span>'+data[i].title+'</span><input type="hidden" id="'+'subject_'+s_n+'" value="'+data[i].code+'"><input type="hidden" id="subject_section_'+s_n+'" value="'+data[i].section+'"></td></tr>';
                 }else{
                     tableRow += '<tr><td>'+ s_n +'</td><td>' +
                         '<select name="assigned-teacher" id="'+'assigned-teacher'+s_n+'" class="form-input">\n' +
                         '                                        \n' +
                         '                                    </select>' +
-                        '</td><td><span id="'+'subject_'+s_n+'">'+data[i].title+'</span></td></tr>';
+                        '</td><td><span>'+data[i].title+'</span><input type="hidden" id="subject_'+s_n+'" value="'+data[i].code+'"><input type="hidden" id="subject_section_'+s_n+'" value="'+data[i].section+'"></td></tr>';
                 }
             }
             document.getElementById('subject-assign-table-body').innerHTML = tableRow;
@@ -634,6 +702,7 @@ function getAllStudents(){
                 let cell4 = document.createElement('td');
                 let cell5 = document.createElement('td');
                 let cell6 = document.createElement('td');
+                let cell7 = document.createElement('td');
 
                 cell1.innerHTML = s_n;
                 cell2.innerHTML = pupildata[i].firstname;
@@ -643,8 +712,9 @@ function getAllStudents(){
                 }else{
                     cell4.innerHTML = pupildata[i].othername;
                 }
-                cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
-                cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
+                cell5.innerHTML = '<button onclick="viewParent('+pupildata[i].parent_id+')">view</button>';
+                cell6.innerHTML = '<span><img src="../../statics/images/icons/edit_black_24dp.svg" onclick="editStudent('+pupildata[i].id+')"></span>';
+                cell7.innerHTML = '<span><img src="../../statics/images/icons/delete_black_24dp.svg" onclick="deleteStudent('+pupildata[i].id+')"></span>';
 
                 row.appendChild(cell1);
                 row.appendChild(cell2);
@@ -652,6 +722,7 @@ function getAllStudents(){
                 row.appendChild(cell4);
                 row.appendChild(cell5);
                 row.appendChild(cell6);
+                row.appendChild(cell7);
 
                 document.getElementById('view-table-body').appendChild(row);
                 s_n++;
@@ -681,6 +752,7 @@ function getStudentsBySection(e){
                 let cell4 = document.createElement('td');
                 let cell5 = document.createElement('td');
                 let cell6 = document.createElement('td');
+                let cell7 = document.createElement('td');
 
                 cell1.innerHTML = s_n+"";
                 cell2.innerHTML = pupildata[i].firstname;
@@ -690,8 +762,9 @@ function getStudentsBySection(e){
                 }else{
                     cell4.innerHTML = pupildata[i].othername;
                 }
-                cell5.innerHTML = '<img src="../../statics/images/icons/edit_black_24dp.svg">';
-                cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg">';
+                cell5.innerHTML = '<button onclick="viewParent('+pupildata[i].parent_id+')">view</button>';
+                cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg" onclick="editStudent('+pupildata[i].id+')">';
+                cell6.innerHTML = '<img src="../../statics/images/icons/delete_black_24dp.svg" onclick="deleteStudent('+pupildata[i].id+')">';
 
                 row.appendChild(cell1);
                 row.appendChild(cell2);
@@ -699,6 +772,7 @@ function getStudentsBySection(e){
                 row.appendChild(cell4);
                 row.appendChild(cell5);
                 row.appendChild(cell6);
+                row.appendChild(cell7);
 
                 document.getElementById('view-table-body').appendChild(row);
                 s_n++;
@@ -877,5 +951,78 @@ function createTeacher(){
     })
 }
 
+/************** NEW FEATURES**************/
+/************** NEW FEATURES**************/
+function assignSubject(){
+    const subjectAssignment = [];
+    for(let i=1; i<=document.getElementById("table-length").value;i++){
+        const subjectTeacher = [];
+        subjectTeacher.push(document.getElementById('assigned-teacher'+i).value);
+        subjectTeacher.push(document.getElementById('subject_'+i).value);
+        subjectTeacher.push(document.getElementById('subject_section_'+i).value);
+        subjectAssignment.push(subjectTeacher);
+    }
+
+    $.ajax({
+        type: 'post',
+        url: '../../backend/App/assign-subject.php',
+        data: {subjectAssignment:JSON.stringify(subjectAssignment)},
+        success:function (response){
+            alert(response);
+        },
+        error:function (error){
+            alert(error);
+        }
+    });
+}
+
+function viewParent(id){
+    $.ajax({
+        type:'post',
+        url:'../../backend/App/get-parent-details.php',
+        data:{id:id},
+        success: function (serverResponse){
+            const dataArray = JSON.parse(serverResponse);
+            $.ajax({
+                type:"GET",
+                url:'../admin-uis/view-parent.php',
+                success: function (response){
+                    const parentTitle = dataArray[0].title;
+                    const parentSurname = dataArray[0].surname;
+                    const parentFirstname = dataArray[0].firstname;
+                    const parentOthername = dataArray[0].othername;
+                    const parentGender = dataArray[0].gender;
+                    const parentAddress = dataArray[0].address;
+                    const parentEmail = dataArray[0].email;
+                    const parentOccupation = dataArray[0].occupation;
+
+                    const modal = document.getElementById('main-modal');
+                    modal.innerHTML = response;
+
+                    document.getElementById('parentViewTitle').innerHTML = parentTitle;
+                    document.getElementById('parentViewSurname').innerHTML = parentSurname;
+                    document.getElementById('parentViewFirstname').innerHTML = parentFirstname;
+                    document.getElementById('parentViewOthername').innerHTML = parentOthername;
+                    document.getElementById('parentViewGender').innerHTML = parentGender;
+                    document.getElementById('parentViewAddress').innerHTML = parentAddress;
+                    document.getElementById('parentViewEmail').innerHTML = parentEmail;
+                    document.getElementById('parentViewOccupation').innerHTML = parentOccupation;
+                    modal.style.display = "block";
+                }
+            })
+        },
+        error: function (serverError){
+            alert(serverError);
+        }
+    })
+}
+
+function editStudent(id){
+    alert(id);
+}
+
+function deleteStudent(id){
+    alert(id);
+}
 
 

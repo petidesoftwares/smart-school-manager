@@ -43,6 +43,7 @@
             <th>First Name</th>
             <th>Surname</th>
             <th>Other Name</th>
+            <th>View Parent</th>
             <th>Edit</th>
             <th>Delete</th>
         </thead>

@@ -40,6 +40,9 @@
         </div>
     </div>
 </div>
+<div class="modal-pane-background" id="main-modal">
+
+</div>
 <div class="col-12 footer">footer</div>
 
 </body>
